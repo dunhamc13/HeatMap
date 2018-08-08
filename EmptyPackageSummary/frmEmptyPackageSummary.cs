@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace EmptyPackageSummary
 {
-    public partial class Form1 : Form
+    public partial class frmEmptyPackageSummary : Form
     {
-        public Form1()
+        public frmEmptyPackageSummary()
         {
             InitializeComponent();
         }
