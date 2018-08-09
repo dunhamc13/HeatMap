@@ -33,11 +33,10 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.btnView = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
-            this.grpAreas = new System.Windows.Forms.GroupBox();
             this.dgvAreas = new System.Windows.Forms.DataGridView();
             this.Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.grpAreas.SuspendLayout();
+            this.PercentOfTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAreas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,25 +82,16 @@
             this.btnClear.Text = "C&lear";
             this.btnClear.UseVisualStyleBackColor = true;
             // 
-            // grpAreas
-            // 
-            this.grpAreas.Controls.Add(this.dgvAreas);
-            this.grpAreas.Location = new System.Drawing.Point(12, 39);
-            this.grpAreas.Name = "grpAreas";
-            this.grpAreas.Size = new System.Drawing.Size(285, 420);
-            this.grpAreas.TabIndex = 7;
-            this.grpAreas.TabStop = false;
-            this.grpAreas.Text = "Top Areas";
-            // 
             // dgvAreas
             // 
             this.dgvAreas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAreas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Area,
-            this.Count});
-            this.dgvAreas.Location = new System.Drawing.Point(6, 19);
+            this.Count,
+            this.PercentOfTotal});
+            this.dgvAreas.Location = new System.Drawing.Point(12, 38);
             this.dgvAreas.Name = "dgvAreas";
-            this.dgvAreas.Size = new System.Drawing.Size(273, 395);
+            this.dgvAreas.Size = new System.Drawing.Size(560, 395);
             this.dgvAreas.TabIndex = 0;
             // 
             // Area
@@ -116,19 +106,25 @@
             this.Count.Name = "Count";
             this.Count.ReadOnly = true;
             // 
+            // PercentOfTotal
+            // 
+            this.PercentOfTotal.HeaderText = "Percent Of Total";
+            this.PercentOfTotal.Name = "PercentOfTotal";
+            this.PercentOfTotal.ReadOnly = true;
+            this.PercentOfTotal.Width = 120;
+            // 
             // frmEmptyPackageSummary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(621, 597);
-            this.Controls.Add(this.grpAreas);
+            this.Controls.Add(this.dgvAreas);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnView);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.txtFilePath);
             this.Name = "frmEmptyPackageSummary";
             this.Text = "Empty Package Summary";
-            this.grpAreas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAreas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -142,10 +138,10 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button btnView;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.GroupBox grpAreas;
         private System.Windows.Forms.DataGridView dgvAreas;
         private System.Windows.Forms.DataGridViewTextBoxColumn Area;
         private System.Windows.Forms.DataGridViewTextBoxColumn Count;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PercentOfTotal;
     }
 }
 

@@ -14,9 +14,10 @@ namespace EmptyPackageSummary
 {
     public partial class frmEmptyPackageSummary : Form
     {
+        class ValuePair { public int count; public decimal cost; };
         string[] lines;
         string path = "";
-        string[][] data;
+        List<EmptyPackage> data;
         public frmEmptyPackageSummary()
         {
             InitializeComponent();
@@ -46,73 +47,67 @@ namespace EmptyPackageSummary
                 //don't do anything, stop processing
                 return;
             }
-            data = new string[lines.Length - 1][];
+            data = new List<EmptyPackage>();
             for (int i = 1; i < lines.Length; i++)
             {
-                //https://forums.asp.net/t/1247607.aspx?Reading+CSV+with+comma+placed+within+double+quotes+
-                // extract the fields
-                Regex CSVParser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
-                String[] thisRow = CSVParser.Split(lines[i]);
-                // clean up the fields (remove " and leading spaces)
-                for (int j = 0; j < thisRow.Length; j++)
-                {
-                    thisRow[j] = thisRow[j].TrimStart(' ', '"');
-                    thisRow[j] = thisRow[j].TrimEnd('"');
-                }
-                data[i - 1] = thisRow;
+                data.Add(new EmptyPackage(lines[i]));
             }
             AnalyzeData();
         }
 
         private void AnalyzeData()
         {
-            DateTime earliest = DateTime.Parse(data[0][7]);
-            DateTime latest = DateTime.Parse(data[0][7]);
+            DateTime earliest = data[0].DateTimeLogged;
+            DateTime latest = data[0].DateTimeLogged;
             decimal totalDollars = 0m;
-            Dictionary<string, int> topLocations = new Dictionary<string, int>();
+
+            Dictionary<string, ValuePair> topLocations = new Dictionary<string, ValuePair>();
             decimal percentWithoutLocation = 0m;
             Dictionary<string, int> topDepartments = new Dictionary<string, int>();
-            for (int i = 0; i < data.Length; i++)
+            for (int i = 0; i < data.Count; i++)
             {
-                string thisLocation = data[i][6];
-                string thisDepartment = data[i][1];
-                decimal thisCost = decimal.Parse(data[i][4], System.Globalization.NumberStyles.Currency);
-                DateTime thisDate = DateTime.Parse(data[0][7]);
-
+                EmptyPackage thisPackage = data[i];
                 //check date
-                if (thisDate < earliest)
-                    earliest = thisDate;
-                else if (thisDate > latest)
-                    latest = thisDate; 
+                if (thisPackage.DateTimeLogged < earliest)
+                    earliest = thisPackage.DateTimeLogged;
+                else if (thisPackage.DateTimeLogged > latest)
+                    latest = thisPackage.DateTimeLogged;
 
                 //accumulate the cost
-                totalDollars += thisCost;
+                totalDollars += thisPackage.Retail;
                 //grab this location 
                 try
                 {
+                    if (thisPackage.AreaFound == "Fitting Room" && thisPackage.LocationFound == "N/A")
+                    {
+                        thisPackage.LocationFound = "Fitting Room";
+                    }
                     //try to add to the count in the dictionary
-                    topLocations[thisLocation] += 1;
+                    topLocations[thisPackage.LocationFound].count++;
+                    topLocations[thisPackage.LocationFound].cost += thisPackage.Retail;
                 }
                 catch (KeyNotFoundException knf)
                 {
                     //if it's not there, put it in the dictionary
-                    topLocations.Add(thisLocation, 1);
+                    topLocations.Add(thisPackage.LocationFound, new ValuePair { count = 1, cost = thisPackage.Retail });
                 }
                 //same with department
                 try
                 {
-                    topDepartments[thisDepartment] += 1;
+                    topDepartments[thisPackage.Department]++;
                 }
                 catch (KeyNotFoundException knf)
                 {
-                    topDepartments.Add(thisDepartment, 1);
+                    topDepartments.Add(thisPackage.Department, 1);
                 }
             }
-            List<KeyValuePair<string, int>> sortedLocations = topLocations.ToList<KeyValuePair<string, int>>();
-            sortedLocations.Sort((a, b) => b.Value.CompareTo(a.Value));
-            for (int i = 0; i < 20; i++)
+            int totalUnknown = topLocations["N/A"].count + topLocations["Not Tracked"].count;
+            List<KeyValuePair<string, ValuePair>> sortedLocations = topLocations.ToList<KeyValuePair<string, ValuePair>>();
+            sortedLocations.Sort((a, b) => b.Value.count.CompareTo(a.Value.count));
+            for (int i = 0; i < sortedLocations.Count; i++)
             {
-                dgvAreas.Rows.Add(sortedLocations[i].Key, sortedLocations[i].Value);
+                string percentOfTotal = (((decimal)sortedLocations[i].Value.count / (decimal)data.Count) * 100).ToString("###.###") + "%";
+                dgvAreas.Rows.Add(sortedLocations[i].Key, sortedLocations[i].Value, percentOfTotal);
             }
         }
 
