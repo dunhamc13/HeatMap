@@ -37,15 +37,22 @@
             this.Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PercentOfTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chkColorCode = new System.Windows.Forms.CheckBox();
+            this.grpSummary = new System.Windows.Forms.GroupBox();
+            this.txtSummary = new System.Windows.Forms.TextBox();
+            this.grpOptions = new System.Windows.Forms.GroupBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAreas)).BeginInit();
+            this.grpSummary.SuspendLayout();
+            this.grpOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(369, 10);
+            this.btnOpen.Location = new System.Drawing.Point(430, 10);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(134, 23);
-            this.btnOpen.TabIndex = 3;
+            this.btnOpen.TabIndex = 1;
             this.btnOpen.Text = "&Analyze Report...";
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
@@ -55,8 +62,8 @@
             this.txtFilePath.AllowDrop = true;
             this.txtFilePath.Location = new System.Drawing.Point(12, 12);
             this.txtFilePath.Name = "txtFilePath";
-            this.txtFilePath.Size = new System.Drawing.Size(351, 20);
-            this.txtFilePath.TabIndex = 2;
+            this.txtFilePath.Size = new System.Drawing.Size(412, 20);
+            this.txtFilePath.TabIndex = 0;
             // 
             // openFileDialog1
             // 
@@ -65,22 +72,23 @@
             // btnView
             // 
             this.btnView.Enabled = false;
-            this.btnView.Location = new System.Drawing.Point(509, 10);
+            this.btnView.Location = new System.Drawing.Point(570, 9);
             this.btnView.Name = "btnView";
             this.btnView.Size = new System.Drawing.Size(100, 23);
-            this.btnView.TabIndex = 4;
+            this.btnView.TabIndex = 2;
             this.btnView.Text = "&View Report...";
             this.btnView.UseVisualStyleBackColor = true;
             this.btnView.Click += new System.EventHandler(this.btnView_Click);
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(534, 562);
+            this.btnClear.Location = new System.Drawing.Point(676, 9);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
-            this.btnClear.TabIndex = 6;
+            this.btnClear.TabIndex = 3;
             this.btnClear.Text = "C&lear";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // dgvAreas
             // 
@@ -89,10 +97,10 @@
             this.Area,
             this.Count,
             this.PercentOfTotal});
-            this.dgvAreas.Location = new System.Drawing.Point(12, 38);
+            this.dgvAreas.Location = new System.Drawing.Point(369, 48);
             this.dgvAreas.Name = "dgvAreas";
-            this.dgvAreas.Size = new System.Drawing.Size(560, 395);
-            this.dgvAreas.TabIndex = 0;
+            this.dgvAreas.Size = new System.Drawing.Size(382, 537);
+            this.dgvAreas.TabIndex = 7;
             // 
             // Area
             // 
@@ -113,11 +121,62 @@
             this.PercentOfTotal.ReadOnly = true;
             this.PercentOfTotal.Width = 120;
             // 
+            // chkColorCode
+            // 
+            this.chkColorCode.AutoSize = true;
+            this.chkColorCode.Location = new System.Drawing.Point(6, 19);
+            this.chkColorCode.Name = "chkColorCode";
+            this.chkColorCode.Size = new System.Drawing.Size(114, 17);
+            this.chkColorCode.TabIndex = 7;
+            this.chkColorCode.Text = "Use Color Coding?";
+            this.chkColorCode.UseVisualStyleBackColor = true;
+            this.chkColorCode.CheckedChanged += new System.EventHandler(this.chkColorCode_CheckedChanged);
+            // 
+            // grpSummary
+            // 
+            this.grpSummary.Controls.Add(this.txtSummary);
+            this.grpSummary.Location = new System.Drawing.Point(21, 79);
+            this.grpSummary.Name = "grpSummary";
+            this.grpSummary.Size = new System.Drawing.Size(342, 167);
+            this.grpSummary.TabIndex = 5;
+            this.grpSummary.TabStop = false;
+            this.grpSummary.Text = "Summary";
+            // 
+            // txtSummary
+            // 
+            this.txtSummary.Location = new System.Drawing.Point(6, 19);
+            this.txtSummary.Multiline = true;
+            this.txtSummary.Name = "txtSummary";
+            this.txtSummary.ReadOnly = true;
+            this.txtSummary.Size = new System.Drawing.Size(330, 142);
+            this.txtSummary.TabIndex = 12;
+            // 
+            // grpOptions
+            // 
+            this.grpOptions.Controls.Add(this.chkColorCode);
+            this.grpOptions.Location = new System.Drawing.Point(21, 294);
+            this.grpOptions.Name = "grpOptions";
+            this.grpOptions.Size = new System.Drawing.Size(342, 100);
+            this.grpOptions.TabIndex = 6;
+            this.grpOptions.TabStop = false;
+            this.grpOptions.Text = "Options";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(12, 48);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(351, 23);
+            this.progressBar1.TabIndex = 4;
+            // 
             // frmEmptyPackageSummary
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(621, 597);
+            this.ClientSize = new System.Drawing.Size(765, 597);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.grpOptions);
+            this.Controls.Add(this.grpSummary);
             this.Controls.Add(this.dgvAreas);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnView);
@@ -125,7 +184,13 @@
             this.Controls.Add(this.txtFilePath);
             this.Name = "frmEmptyPackageSummary";
             this.Text = "Empty Package Summary";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.frmEmptyPackageSummary_DragDrop);
+            this.DragOver += new System.Windows.Forms.DragEventHandler(this.frmEmptyPackageSummary_DragOver);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAreas)).EndInit();
+            this.grpSummary.ResumeLayout(false);
+            this.grpSummary.PerformLayout();
+            this.grpOptions.ResumeLayout(false);
+            this.grpOptions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -142,6 +207,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Area;
         private System.Windows.Forms.DataGridViewTextBoxColumn Count;
         private System.Windows.Forms.DataGridViewTextBoxColumn PercentOfTotal;
+        private System.Windows.Forms.CheckBox chkColorCode;
+        private System.Windows.Forms.GroupBox grpSummary;
+        private System.Windows.Forms.GroupBox grpOptions;
+        private System.Windows.Forms.TextBox txtSummary;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 
