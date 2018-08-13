@@ -99,6 +99,7 @@
             this.PercentOfTotal});
             this.dgvAreas.Location = new System.Drawing.Point(369, 48);
             this.dgvAreas.Name = "dgvAreas";
+            this.dgvAreas.ReadOnly = true;
             this.dgvAreas.Size = new System.Drawing.Size(382, 537);
             this.dgvAreas.TabIndex = 7;
             // 
@@ -183,7 +184,7 @@
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.txtFilePath);
             this.Name = "frmEmptyPackageSummary";
-            this.Text = "Empty Package Summary";
+            this.Text = "Empty Package Summary - Version 0.3.11";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.frmEmptyPackageSummary_DragDrop);
             this.DragOver += new System.Windows.Forms.DragEventHandler(this.frmEmptyPackageSummary_DragOver);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAreas)).EndInit();

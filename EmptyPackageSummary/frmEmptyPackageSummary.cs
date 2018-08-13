@@ -247,6 +247,7 @@ namespace EmptyPackageSummary
                     row.DefaultCellStyle.ForeColor = Color.Black;
                 }
             }
+            dgvAreas.ClearSelection();
             progressBar1.Value = progressBar1.Maximum;
         }
 
